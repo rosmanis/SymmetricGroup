@@ -1,5 +1,14 @@
 __author__ = 'Ansis Rosmanis'
 
+from math import factorial
+
+# Product of the elements of a list (Get a nicer implementation for this)
+def prod(lst):
+    res = 1
+    for x in lst:
+        res *= x
+    return res
+
 # We store a partition as a non-increasing zero-free list.
 # This is a bijective representation of partitions (another one being using cycle types).
 class Partition:
@@ -120,3 +129,11 @@ class Partition:
     # Ferrers diagram of the partition
     def Ferrers(self):
         return '\n'.join(['* ' * p for p in self.parts])
+
+
+# Conjugacy class of the symmetric group (the name ConjugacyClass might be too general, if we ever consider
+# different groups.)
+class ConjugacyClass(Partition):
+    # size of the conjugacy class
+    def size(self):
+        return round(factorial(self.number()) / ( prod(self.parts) * prod(map(factorial,p.cycleType())) ))
